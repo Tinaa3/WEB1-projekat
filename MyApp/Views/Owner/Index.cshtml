@@ -1,0 +1,104 @@
+﻿@using MyApp.Models;
+@{
+    ViewBag.Title = "Index";
+    List<FitnessCenter> fitnessCenters = ViewBag.FitnessCenters;
+    FitnessCenter fc = ViewBag.FitnessCenter;
+}
+<br />
+<table>
+    <tr>
+        <th>Naziv</th>
+        <th>Adresa</th>
+        <th>Godina otvaranja</th>
+        <th>Mesecna clanarina</th>
+        <th>Godisnja clanarina</th>
+        <th>Cena treninga</th>
+        <th>Cena grupnog treninga</th>
+        <th>Cena personalnog treninga</th>
+        <th></th>
+        <th></th>
+    </tr>
+    @foreach (var f in fitnessCenters)
+    {
+        <tr>
+            <td>@f.Name</td>
+            <td>@f.Address.ToString()</td>
+            <td>@f.OpeningYear</td>
+            <td>@f.MonthFee</td>
+            <td>@f.YearFee</td>
+            <td>@f.TrainingFee</td>
+            <td>@f.GroupFee</td>
+            <td>@f.PersonalFee</td>
+            <td>
+                <form action="~/Owner/Update">
+                    <input hidden name="id" value="@f.ID" />
+                    <input type="submit" value="Izmeni" class="btn btn-dark" />
+                </form>
+            </td>
+            <td>
+                <form action="~/Owner/Delete" method="post">
+                    <input hidden name="id" value="@f.ID" />
+                    <input type="submit" value="Obrisi" class="btn btn-danger" />
+                </form>
+            </td>
+        </tr>
+    }
+</table>
+<br />
+@if (fc == null)
+{
+    <form action="~/Owner/Create" method="post">
+        <input name="name" class="form-control" required placeholder="Naziv" />
+        <br />
+        <input name="openingYear" class="form-control" type="number" min="0" step="1" required placeholder="Godina otvaranja" />
+        <br />
+        <input name="monthFee" class="form-control" type="number" min="0" step="1" required placeholder="Mesecna clanarina" />
+        <br />
+        <input name="yearFee" class="form-control" type="number" min="0" step="1" required placeholder="Godisnja clanarina" />
+        <br />
+        <input name="trainingFee" class="form-control" type="number" min="0" step="1" required placeholder="Cena treninga" />
+        <br />
+        <input name="groupFee" class="form-control" type="number" min="0" step="1" required placeholder="Cena grupnog treninga" />
+        <br />
+        <input name="personalFee" class="form-control" type="number" min="0" step="1" required placeholder="Cena personalnog treninga" />
+        <br />
+        <input name="street" class="form-control" required placeholder="Ulica" />
+        <br />
+        <input name="number" class="form-control" required placeholder="Broj" />
+        <br />
+        <input name="city" class="form-control" required placeholder="Mesto" />
+        <br />
+        <input name="postCode" class="form-control" type="number" min="0" step="1" required placeholder="Postanski broj" />
+        <br />
+        <input type="submit" value="Dodaj centar" class="btn btn-dark" />
+    </form>
+}
+else
+{
+    <form action="~/Owner/Update" method="post">
+        <input hidden name="ID" value="@fc.ID" />
+        <input name="name" class="form-control" required placeholder="Naziv" value="@fc.Name"/>
+        <br />
+        <input name="openingYear" class="form-control" type="number" min="0" step="1" required placeholder="Godina otvaranja" value="@fc.OpeningYear"/>
+        <br />
+        <input name="monthFee" class="form-control" type="number" min="0" step="1" required placeholder="Mesecna clanarina" value="@fc.MonthFee"/>
+        <br />
+        <input name="yearFee" class="form-control" type="number" min="0" step="1" required placeholder="Godisnja clanarina" value="@fc.YearFee"/>
+        <br />
+        <input name="trainingFee" class="form-control" type="number" min="0" step="1" required placeholder="Cena treninga" value="@fc.TrainingFee" />
+        <br />
+        <input name="groupFee" class="form-control" type="number" min="0" step="1" required placeholder="Cena grupnog treninga" value="@fc.GroupFee"/>
+        <br />
+        <input name="personalFee" class="form-control" type="number" min="0" step="1" required placeholder="Cena personalnog treninga" value="@fc.PersonalFee"/>
+        <br />
+        <input name="street" class="form-control" required placeholder="Ulica" value="@fc.Address.Street"/>
+        <br />
+        <input name="number" class="form-control" required placeholder="Broj" value="@fc.Address.Number"/>
+        <br />
+        <input name="city" class="form-control" required placeholder="Mesto" value="@fc.Address.City"/>
+        <br />
+        <input name="postCode" class="form-control" type="number" min="0" step="1" required placeholder="Postanski broj" value="@fc.Address.PostCode"/>
+        <br />
+        <input type="submit" value="Izmeni centar" class="btn btn-dark" />
+    </form>
+}

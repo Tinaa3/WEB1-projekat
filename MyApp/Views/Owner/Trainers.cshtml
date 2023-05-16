@@ -1,0 +1,58 @@
+﻿@using MyApp.Models;
+@{
+    ViewBag.Title = "Trainers";
+    List<User> trainers = ViewBag.Trainers;
+    List<FitnessCenter> fitnessCenters = ViewBag.FitnessCenters;
+}
+
+<br/>
+<table style="float:right">
+    <tr>
+        <th>Korisnicko ime</th>
+        <th>Ime</th>
+        <th>Prezime</th>
+        <th></th>
+    </tr>
+    @foreach (var t in trainers)
+    {
+        <tr>
+            <td>@t.Username</td>
+            <td>@t.Name</td>
+            <td>@t.Lastname</td>
+            <td>
+                <form action="~/Owner/Block" method="post">
+                    <input hidden name="id" value="@t.ID"/>
+                    <input type="submit" value="Blokiraj" class="btn btn-danger"/>
+                </form>
+            </td>
+        </tr>
+    }
+</table>
+<form action="~/Auth/Register" method="post">
+    <input hidden name="role" value="TRAINER"/>
+    <input name="username" class="form-control" required placeholder="Korisnicko ime" />
+    <br />
+    <input name="password" class="form-control" type="password" required placeholder="Lozinka" />
+    <br />
+    <input name="email" class="form-control" type="email" required placeholder="Email" />
+    <br />
+    <input name="name" class="form-control" required placeholder="Ime" />
+    <br />
+    <input name="lastname" class="form-control" required placeholder="Prezime" />
+    <br />
+    <input name="birthday" class="form-control" type="date" required />
+    <br />
+    <select name="gender" class="form-select">
+        <option value="male">MUSKI</option>
+        <option value="female">ZENSKI</option>
+    </select>
+    <br />
+    <select name="trainer_FitnessCenterID" class="form-select">
+        @foreach (var f in fitnessCenters)
+        {
+            <option value="@f.ID">@f.Name</option>
+        }
+    </select>
+    <br/>
+    <input type="submit" value="Registruj trenera" class="btn btn-dark" />
+</form>

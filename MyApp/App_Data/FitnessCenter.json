@@ -1,0 +1,38 @@
+[
+  {
+    "Name": "MasterGym",
+    "Address": {
+      "Street": "Strazilovska",
+      "Number": 10,
+      "City": "Novi Sad",
+      "PostCode": 21000
+    },
+    "OpeningYear": 2010,
+    "OwnerID": 0,
+    "MonthFee": 4000,
+    "YearFee": 40000,
+    "TrainingFee": 400,
+    "GroupFee": 400,
+    "PersonalFee": 600,
+    "ID": 0,
+    "Deleted": false
+  }, 
+  {
+    "Name": "GymMaster",
+    "Address": {
+      "Street": "Zeleznicka",
+      "Number": 15,
+      "City": "Novi Sad",
+      "PostCode": 21000
+    },
+    "OpeningYear": 2015,
+    "OwnerID": 0,
+    "MonthFee": 5000,
+    "YearFee": 50000,
+    "TrainingFee": 500,
+    "GroupFee": 500,
+    "PersonalFee": 800,
+    "ID": 1,
+    "Deleted": false
+  }
+]

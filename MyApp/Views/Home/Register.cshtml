@@ -1,0 +1,27 @@
+﻿
+@{
+    ViewBag.Title = "Register";
+}
+
+<h2>Register</h2>
+<br />
+<form action="~/Auth/Register" method="post">
+    <input name="username" class="form-control" required placeholder="Korisnicko ime" />
+    <br />
+    <input name="password" class="form-control" type="password" required placeholder="Lozinka" />
+    <br />
+    <input name="email" class="form-control" type="email"  required placeholder="Email" />
+    <br />
+    <input name="name" class="form-control" required placeholder="Ime" />
+    <br />
+    <input name="lastname" class="form-control" required placeholder="Prezime" />
+    <br />
+    <input name="birthday" class="form-control" type="date" required />
+    <br />
+    <select name="gender" class="form-select">
+        <option value="male">MUSKI</option>
+        <option value="female">ZENSKI</option>
+    </select>
+    <br />
+    <input type="submit" value="Registrujte se" class="btn btn-dark" />
+</form>

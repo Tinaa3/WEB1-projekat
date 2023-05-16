@@ -1,0 +1,81 @@
+﻿@using MyApp.Models;
+@{
+    /**/
+
+    ViewBag.Title = "History";
+    List<TrainingDTO> trainings = ViewBag.Trainings;
+    List<FitnessCenter> fitnessCenters = ViewBag.FitnessCenters;
+}
+
+<h2>Prosli treninzi</h2>
+@if (trainings.Count > 0)
+{
+    <div style="float:right">
+        <form action="~/Visitor/Search">
+            <input name="name" class="form-control" placeholder="Naziv" />
+            <br />
+            <select name="type" class="form-select">
+                <option>YOGA</option>
+                <option>LESMILLSTONE</option>
+                <option>BODYPUMP</option>
+                <option>BODYATTACK</option>
+            </select>
+            <br />
+            <input name="centerName" class="form-control" placeholder="Naziv fitnes centra" />
+            <br />
+            <input type="submit" value="Pretraga" class="btn btn-dark" />
+        </form>
+        <br />
+        <form action="~/Visitor/Sort">
+            <label>Sortiraj:</label>
+            <select name="orderFrom" class="form-select">
+                <option value="name">Naziv</option>
+                <option value="type">Tip treninga</option>
+                <option value="date">Datum i vreme</option>
+            </select>
+            <select name="orderBy" class="form-select">
+                <option value="asc">RASTUCE</option>
+                <option value="desc">OPADAJUCE</option>
+            </select>
+            <input type="submit" value="Sortiraj" class="btn btn-dark" />
+        </form>
+    </div>
+    <table>
+        <tr>
+            <th>Naziv</th>
+            <th>Tip</th>
+            <th>Fitnes centar</th>
+            <th>Trajanje</th>
+            <th>Vreme treninga</th>
+        </tr>
+
+        @foreach (var t in trainings)
+        {
+            <tr>
+                <td>@t.Name</td>
+                <td>@t.Type</td>
+                <td>@t.FitnessCenter.Name</td>
+                <td>@t.DurationTime</td>
+                <td>@t.TrainingTime</td>
+            </tr>
+        }
+    </table>
+    <br />
+    <form action="~/Visitor/Comment" method="post">
+        <input name="text" class="form-control" required placeholder="Tekst komentara" />
+        <select name="mark">
+            @for (int i = 1; i <= 5; i++)
+            {
+                <option>@i</option>
+            }
+        </select>
+        <select name="FitnessCenterID">
+            @foreach (var fc in fitnessCenters)
+            {
+                <option value="@fc.ID">@fc.Name</option>
+            }
+        </select>
+        <input type="submit" value="Komentarisi" class="btn btn-dark" />
+    </form>
+}
+

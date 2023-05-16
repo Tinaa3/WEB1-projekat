@@ -1,0 +1,13 @@
+﻿@using MyApp.Models;
+@{
+    ViewBag.Title = "Visitors";
+    TrainingDTO training = ViewBag.Training;
+}
+
+@foreach (var t in training.Visitors)
+{
+    <br/>
+    <p>@t.Username, @t.Name @t.Lastname</p>
+}
+
+

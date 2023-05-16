@@ -1,0 +1,27 @@
+﻿@using MyApp.Models;
+@{
+    ViewBag.Title = "Update profile";
+    User user = (User)Session["user"];
+}
+
+<br/>
+<form action="~/Auth/Update" method="post">
+    <input name="username" class="form-control" required placeholder="Korisnicko ime" value="@user.Username"/>
+    <br />
+    <input name="password" class="form-control" required placeholder="Lozinka" value="@user.Password"/>
+    <br />
+    <input name="email" class="form-control" type="email" required placeholder="Email" value="@user.Email"/>
+    <br />
+    <input name="name" class="form-control" required placeholder="Ime" value="@user.Name"/>
+    <br />
+    <input name="lastname" class="form-control" required placeholder="Prezime" value="@user.Lastname"/>
+    <br />
+    <input name="birthday" class="form-control" type="date" required value="@user.Birthday.ToString("yyyy-MM-dd")"/>
+    <br />
+    <select name="gender" class="form-select">
+        <option value="male">MUSKI</option>
+        <option value="female" @(user.Gender == Gender.FEMALE ? "selected" : "")>ZENSKI</option>
+    </select>
+    <br />
+    <input type="submit" value="Izmeni profil" class="btn btn-dark" />
+</form>

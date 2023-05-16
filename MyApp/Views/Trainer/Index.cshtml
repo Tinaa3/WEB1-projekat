@@ -1,0 +1,104 @@
+﻿@using MyApp.Models;
+@{
+    ViewBag.Title = "Index";
+    List<TrainingDTO> trainings = ViewBag.Trainings;
+    Training training = ViewBag.Training;
+}
+
+<br />
+
+<table>
+    <tr>
+        <th>Naziv</th>
+        <th>Tip</th>
+        <th>Trajanje</th>
+        <th>Vreme</th>
+        <th>Max posetioca</th>
+        <th>Broj prijavljenih</th>
+        <th></th>
+        <th></th>
+        <th>
+    </tr>
+
+    @foreach (var t in trainings)
+    {
+        <tr>
+            <td>@t.Name</td>
+            <td>@t.Type</td>
+            <td>@t.DurationTime</td>
+            <td>@t.TrainingTime</td>
+            <td>@t.MaxVisitors</td>
+            <td>@t.Visitors.Count</td>
+            <td>
+                <form action="~/Trainer/Update">
+                    <input hidden name="id" value="@t.ID" />
+                    <input type="submit" class="btn btn-dark" value="Izmeni" />
+                </form>
+            </td>
+            <td>
+                @if (t.Visitors.Count == 0)
+                {
+                    <form action="~/Trainer/Delete" method="post">
+                        <input hidden name="id" value="@t.ID" />
+                        <input type="submit" class="btn btn-danger" value="Obrisi" />
+                    </form>
+                }
+            </td>
+            <td>
+                @if (t.Visitors.Count != 0)
+                {
+                    <form action="~/Trainer/Visitors">
+                        <input hidden name="id" value="@t.ID" />
+                        <input type="submit" class="btn btn-dark" value="Posetioci" />
+                    </form>
+                }
+            </td>
+        </tr>
+    }
+</table>
+@if (training == null)
+{
+    <br />
+    <form action="~/Trainer/Create" method="post">
+        <input name="Name" class="form-control" required placeholder="Naziv" />
+        <br />
+        <select name="Type" class="form-select">
+            <option>YOGA</option>
+            <option>LESMILLSTONE</option>
+            <option>BODYPUMP</option>
+            <option>BODYATTACK</option>
+        </select>
+        <br />
+        <input name="DurationTime" class="form-control" type="number" min="1" placeholder="Trajanje treninga" />
+        <br />
+        <input name="TrainingTime" class="form-control" type="datetime-local" min="@DateTime.Now.AddDays(3).ToString("yyyy-MM-dd 00:00")" required />
+        <br />
+        <input name="MaxVisitors" class="form-control" type="number" min="1" placeholder="Maksimalno posetioca" required />
+        <br />
+        <input type="submit" value="Dodaj" class="btn btn-dark" />
+    </form>
+}
+else
+{
+    <br />
+    <form action="~/Trainer/Update" method="post">
+        <input hidden name="ID" value="@training.ID"/>
+        <input name="Name" class="form-control" required placeholder="Naziv" value="@training.Name"/>
+        <br />
+        <select name="Type" class="form-select" >
+            <option>YOGA</option>
+            <option>LESMILLSTONE</option>
+            <option>BODYPUMP</option>
+            <option>BODYATTACK</option>
+        </select>
+        <br />
+        <input name="DurationTime" class="form-control" type="number" min="1" placeholder="Trajanje treninga" value="@training.DurationTime"/>
+        <br />
+        <input name="TrainingTime" class="form-control" type="datetime-local" min="@DateTime.Now.AddDays(3).ToString("yyyy-MM-dd")" required value="@training.TrainingTime.ToString("yyyy-MM-dd HH:mm")"/>
+        <br />
+        <input name="MaxVisitors" class="form-control" type="number" min="1" required placeholder="Maksimalno posetioca"  value="@training.MaxVisitors"/>
+        <br />
+        <input type="submit" value="Izmeni" class="btn btn-dark" />
+    </form>
+}
+

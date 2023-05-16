@@ -1,0 +1,57 @@
+﻿@using MyApp.Models;
+@{
+    ViewBag.Title = "Home";
+}
+
+<h2>Fitnes centri</h2>
+<br />
+<div style="float:right">
+    <form action="~/Home/Search">
+        <input name="name" class="form-control" placeholder="Naziv fitnes centra" />
+        <br />
+        <input name="address" class="form-control" placeholder="Adresa fitnes centra" />
+        <br />
+        <input name="min" type="number" min="1950" class="form-control" placeholder="Minimalna godina otvaranja" />
+        <br />
+        <input name="max" type="number" min="1950" class="form-control" placeholder="Maksimalna godina otvaranja" />
+        <br />
+        <input type="submit" value="Pretraga" class="btn btn-dark" />
+    </form>
+    <br />
+    <form action="~/Home/Sort">
+        <select name="orderFrom" style="border-radius: 3px;" class="form-select">
+            <option value="name">NAZIV</option>
+            <option value="address">ADRESA</option>
+            <option value="year">GODINA</option>
+        </select>
+        <select name="orderBy" style="border-radius: 3px;" class="form-select">
+            <option value="asc">RASTUCE</option>
+            <option value="desc">OPADAJUCE</option>
+        </select>
+        <input type="submit" value="Sortiraj" class="btn btn-dark" />
+    </form>
+</div>
+<table>
+    <tr>
+        <th>Naziv</th>
+        <th>Adresa</th>
+        <th>Godina osnivanja</th>
+        <th></th>
+    </tr>
+
+    @foreach (FitnessCenter f in ViewBag.FitnessCenters)
+    {
+        <tr>
+            <td>@f.Name</td>
+            <td>@f.Address.ToString()</td>
+            <td>@f.OpeningYear</td>
+            <td>
+                <form action="~/Home/Details">
+                    <input value="@f.ID" name="id" hidden />
+                    <input type="submit" value="Detaljnije" class="btn btn-dark" />
+                </form>
+            </td>
+        </tr>
+    }
+</table>
+

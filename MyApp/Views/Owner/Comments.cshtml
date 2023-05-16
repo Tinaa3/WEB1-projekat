@@ -1,0 +1,42 @@
+﻿@using MyApp.Models;
+@{
+    ViewBag.Title = "Comments";
+    List<CommentDTO> comments = ViewBag.Comments;
+}
+
+<br/>
+<table>
+    <tr>
+        <th>Posetilac</th>
+        <th>Fitnes centar</th>
+        <th>Tekst</th>
+        <th>Ocena</th>
+        <th></th>
+        <th></th>
+    </tr>
+
+    @foreach (var c in comments)
+    {
+        <tr>
+            <td>@c.Visitor.Username</td>
+            <td>@c.FitnessCenter.Name</td>
+            <td>@c.Text</td>
+            <td>@c.Mark</td>
+            <td>
+                <form action="~/Owner/Comment" method="post">
+                    <input hidden name="id" value="@c.ID"/>
+                    <input hidden name="visible" value="yes"/>
+                    <input type="submit" value="Potvrdi" class="btn btn-primary" />
+                </form>
+            </td>
+            <td>
+                <form action="~/Owner/Comment" method="post">
+                    <input hidden name="id" value="@c.ID"/>
+                    <input type="submit" value="Obrisi" class="btn btn-danger" />
+                </form>
+            </td>
+        </tr>
+    }
+</table>
+
+

@@ -1,0 +1,67 @@
+﻿@using MyApp.Models;
+@{
+    ViewBag.Title = "History";
+    List<TrainingDTO> trainings = ViewBag.Trainings;
+}
+
+<br />
+<div style="float:right">
+    <form action="~/Trainer/Search">
+        <input name="name" class="form-control" placeholder="Naziv" />
+        <br />
+        <select name="type" class="form-select">
+            <option>YOGA</option>
+            <option>LESMILLSTONE</option>
+            <option>BODYPUMP</option>
+            <option>BODYATTACK</option>
+        </select>
+        <br />
+        <label>Min datum</label>
+        <input name="min" type="datetime-local" class="form-control" />
+        <br />
+        <label>Max datum</label>
+        <input name="max" type="datetime-local" class="form-control" />
+        <br />
+        <input type="submit" value="Pretraga" class="btn btn-dark" />
+    </form>
+    <br />
+    <form action="~/Trainer/Sort">
+        <select name="orderFrom" class="form-select">
+            <option value="name">Naziv</option>
+            <option value="type">Tip treninga</option>
+            <option value="date">Datum i vreme</option>
+        </select>
+        <select name="orderBy" class="form-select">
+            <option value="asc">RASTUCE</option>
+            <option value="desc">OPADAJUCE</option>
+        </select>
+        <input type="submit" value="Sortiranje" class="btn btn-dark" />
+    </form>
+</div>
+<table>
+    <tr>
+        <th>Naziv</th>
+        <th>Tip</th>
+        <th>Vreme</th>
+        <th>Trajanje</th>
+        <th></th>
+    </tr>
+    @foreach (var t in trainings)
+    {
+        <tr>
+            <td>@t.Name</td>
+            <td>@t.Type</td>
+            <td>@t.TrainingTime</td>
+            <td>@t.DurationTime</td>
+            <td>
+                <form action="~/Trainer/Visitors">
+                    <input hidden name="id" value="@t.ID"/>
+                    <input type="submit" value="Posetioci" class="btn btn-dark" />
+                </form>
+            </td>
+        </tr>
+    }
+</table>
+<br />
+
+

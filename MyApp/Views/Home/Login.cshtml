@@ -1,0 +1,20 @@
+﻿
+@{
+    ViewBag.Title = "Login";
+}
+
+<h2>Login</h2>
+<br />
+<form action="~/Auth/Login" method="post">
+    <input name="username" class="form-control" required placeholder="Korisnicko ime" />
+    <br />
+    <input name="password" class="form-control" required type="password" placeholder="Lozinka" />
+    <br />
+    <input type="submit" value="Uloguj se" class="btn btn-dark" />
+</form>
+@if(ViewBag.Poruka != null)
+{
+    <br/>
+    <h3 style="color:red;"></h3>
+}
+

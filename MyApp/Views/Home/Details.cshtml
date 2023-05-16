@@ -1,0 +1,117 @@
+﻿@using MyApp.Models;
+@{
+    ViewBag.Title = "Details";
+    FitnessCenter fc = ViewBag.FitnessCenter;
+    User owner = ViewBag.Owner;
+    List<Training> trainings = ViewBag.Trainings;
+    List<CommentDTO> comments = ViewBag.Comments;
+    bool active = Session["user"] != null;
+    if (active)
+    {
+        active = ((User)Session["user"]).Role == Role.VISITOR;
+    }
+}
+
+<br/>
+<div style="float:right">
+    @if (trainings.Count > 0)
+    {
+        <table>
+            <tr>
+                <th>Naziv</th>
+                <th>Tip</th>
+                <th>Trajanje</th>
+                <th>Vreme treninga</th>
+                <th>Max posetilaca</th>
+                <th>Broj prijavljenih</th>
+                @if (active)
+                {
+                    <th>Prijava</th>
+                }
+            </tr>
+
+            @foreach (var t in trainings)
+            {
+                <tr>
+                    <td>@t.Name</td>
+                    <td>@Enum.GetName(typeof(TrainingType), t.Type)</td>
+                    <td>@t.DurationTime</td>
+                    <td>@t.TrainingTime.ToString("dd/MM/yyyy HH:mm")</td>
+                    <td>@t.MaxVisitors</td>
+                    <td>@t.VisitorsIDs.Count</td>
+                    @if (active)
+                    {
+                        if (!((User)Session["user"]).Visitor_TrainingsIDs.Contains(t.ID) && t.VisitorsIDs.Count < t.MaxVisitors)
+                        {
+                            <td>
+                                <form action="~/Visitor/TrainingEntry" method="post">
+                                    <input hidden name="id" value="@t.ID" />
+                                    <input type="submit" value="Prijava" class="btn btn-dark" />
+                                </form>
+                            </td>
+                        }
+
+                    }
+
+                </tr>
+            }
+        </table>
+    }
+
+    @if (comments.Count > 0)
+    {
+        <table>
+            <tr>
+                <th>Posetilac</th>
+                <th>Komentar</th>
+                <th>Ocena</th>
+            </tr>
+            @foreach (var c in comments)
+            {
+                <tr>
+                    <td>@c.Visitor.Username</td>
+                    <td>@c.Text</td>
+                    <td>@c.Mark</td>
+                </tr>
+            }
+        </table>
+    }
+</div>
+<table>
+    <tr>
+        <td>Naziv</td>
+        <td>@fc.Name</td>
+    </tr>
+    <tr>
+        <td>Vlasnik</td>
+        <td>@owner.Username, @owner.Name @owner.Lastname</td>
+    </tr>
+    <tr>
+        <td>Adresa</td>
+        <td>@fc.Address.ToString()</td>
+    </tr>
+    <tr>
+        <td>Godina otvaranja</td>
+        <td>@fc.OpeningYear</td>
+    </tr>
+    <tr>
+        <td>Mesecna clanarina</td>
+        <td>@fc.MonthFee</td>
+    </tr>
+    <tr>
+        <td>Godisnja clanarina</td>
+        <td>@fc.YearFee</td>
+    </tr>
+    <tr>
+        <td>Cena treninga</td>
+        <td>@fc.TrainingFee</td>
+    </tr>
+    <tr>
+        <td>Cena grupnog treninga</td>
+        <td>@fc.GroupFee</td>
+    </tr>
+    <tr>
+        <td>Cena personalnog treninga</td>
+        <td>@fc.PersonalFee</td>
+    </tr>
+</table>

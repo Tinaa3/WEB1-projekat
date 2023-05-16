@@ -1,0 +1,20 @@
+[
+    {
+        "VisitorID": 1,
+        "Text": "Komentar",
+        "Mark": 1,
+        "FitnessCenterID": 0,
+        "Visible": false,
+        "ID": 0,
+        "Deleted": true
+    },
+    {
+        "VisitorID": 1,
+        "Text": "Komentar2",
+        "Mark": 4,
+        "FitnessCenterID": 0,
+        "Visible": true,
+        "ID": 1,
+        "Deleted": false
+    }
+]
